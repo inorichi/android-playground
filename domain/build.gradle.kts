@@ -14,4 +14,12 @@ android {
 dependencies {
   implementation(Deps.Hilt.android)
   api(Deps.Android.paging)
+
+  testImplementation(Deps.Kotest.framework)
+  testImplementation(Deps.Kotest.assertions)
+  testImplementation(Deps.mockk)
+}
+
+tasks.withType<Test> {
+  useJUnitPlatform()
 }

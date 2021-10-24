@@ -56,4 +56,12 @@ object Deps {
     const val compiler = "androidx.room:room-compiler:$version"
   }
 
+  object Kotest {
+    private const val version = "4.6.3"
+    const val framework = "io.kotest:kotest-runner-junit5:$version"
+    const val assertions = "io.kotest:kotest-assertions-core:$version"
+  }
+
+  const val mockk = "io.mockk:mockk:1.12.0"
+
 }
