@@ -5,12 +5,15 @@ import com.github.inorichi.marvel.data.BuildConfig
 /**
  * Constants required to interact with the Marvel API, like the base url and the authentication
  * parameters.
+ *
+ * Some properties are intentionally not constant in order to mock them from tests.
  */
+@Suppress("MayBeConstant")
 internal object MarvelApiConstants {
   const val BASE_URL = BuildConfig.API_BASE_URL
-  const val TS = BuildConfig.API_TS
-  const val APIKEY = BuildConfig.API_KEY
-  const val HASH = BuildConfig.API_HASH
+  val TS = BuildConfig.API_TS
+  val APIKEY = BuildConfig.API_KEY
+  val HASH = BuildConfig.API_HASH
 
   const val PAGE_LIMIT = 20
 }

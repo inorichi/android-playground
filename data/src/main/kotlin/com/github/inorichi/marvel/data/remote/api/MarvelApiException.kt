@@ -7,8 +7,9 @@ import okio.IOException
  */
 sealed class MarvelApiException(message: String) : IOException(message) {
   class UnauthorizedError(message: String) : MarvelApiException(message)
-  class NetworkNotAvailable(message: String) : MarvelApiException(message)
+  class UnreachableError(message: String) : MarvelApiException(message)
   class ClientError(val code: Int, message: String) : MarvelApiException(message)
   class ServerError(val code: Int, message: String) : MarvelApiException(message)
-  class UnknownError(message: String) : MarvelApiException(message)
+  class JsonDecodingError(message: String) : MarvelApiException(message)
+  class GenericError(val error: Exception, message: String) : MarvelApiException(message)
 }

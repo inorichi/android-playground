@@ -6,7 +6,9 @@ import com.github.inorichi.marvel.data.remote.api.MarvelApi
 import com.github.inorichi.marvel.data.remote.api.MarvelApiConstants
 import com.github.inorichi.marvel.domain.character.entity.CharacterOverview
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class CharacterRemoteDataSource @Inject constructor(private val api: MarvelApi) {
 
   suspend fun getCharacters(page: Int): PageResult<CharacterOverview> {

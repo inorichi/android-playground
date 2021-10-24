@@ -2,6 +2,7 @@ package com.github.inorichi.marvel.data.remote.api
 
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
@@ -51,10 +52,11 @@ class MarvelApiInterceptor @Inject constructor(): Interceptor {
       return response
     } catch (error: Exception) {
       throw when (error) {
-        is UnknownHostException -> MarvelApiException.NetworkNotAvailable(error.message.orEmpty())
-        is SocketTimeoutException -> MarvelApiException.NetworkNotAvailable(error.message.orEmpty())
+        is ConnectException -> MarvelApiException.UnreachableError(error.message.orEmpty())
+        is UnknownHostException -> MarvelApiException.UnreachableError(error.message.orEmpty())
+        is SocketTimeoutException -> MarvelApiException.UnreachableError(error.message.orEmpty())
         is MarvelApiException -> error
-        else -> MarvelApiException.UnknownError(error.message.orEmpty())
+        else -> MarvelApiException.GenericError(error, error.message.orEmpty())
       }
     }
   }

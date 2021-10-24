@@ -2,10 +2,7 @@ package com.github.inorichi.marvel.data.remote.api
 
 import com.github.inorichi.marvel.data.remote.model.response.GetCharacterDetailsResponse
 import com.github.inorichi.marvel.data.remote.model.response.GetCharactersResponse
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.http.GET
@@ -30,19 +27,19 @@ interface MarvelApi {
 
   companion object {
     @OptIn(ExperimentalSerializationApi::class)
-    fun create(okHttpClient: OkHttpClient, marvelApiInterceptor: MarvelApiInterceptor): MarvelApi {
-      val contentType = "application/json".toMediaType()
-      val json = Json {
-        ignoreUnknownKeys = true
-      }
+    fun create(
+      okHttpClient: OkHttpClient,
+      marvelApiInterceptor: MarvelApiInterceptor,
+      baseUrl: String = MarvelApiConstants.BASE_URL
+    ): MarvelApi {
       val marvelApiClient = okHttpClient.newBuilder()
         .addInterceptor(marvelApiInterceptor)
         .build()
 
       return Retrofit.Builder()
-        .baseUrl(MarvelApiConstants.BASE_URL)
+        .baseUrl(baseUrl)
         .client(marvelApiClient)
-        .addConverterFactory(json.asConverterFactory(contentType))
+        .addConverterFactory(MarvelApiJsonDecoder())
         .build()
         .create(MarvelApi::class.java)
     }

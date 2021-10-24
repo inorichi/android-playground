@@ -34,17 +34,25 @@ kotlin {
 dependencies {
   implementation(project(":domain"))
 
-  api(Deps.okhttp)
+  api(Deps.OkHttp.core)
   api(Deps.Hilt.android)
   api(Deps.Kotlin.Serialization.json)
   api(Deps.Retrofit.core)
-  api(Deps.Retrofit.serialization)
   api(Deps.Room.core)
 
   kapt(Deps.Hilt.compiler)
   kapt(Deps.Room.compiler)
+
+  testImplementation(Deps.Kotest.framework)
+  testImplementation(Deps.Kotest.assertions)
+  testImplementation(Deps.mockk)
+  testImplementation(Deps.OkHttp.mock)
 }
 
 kapt {
   correctErrorTypes = true
+}
+
+tasks.withType<Test> {
+  useJUnitPlatform()
 }

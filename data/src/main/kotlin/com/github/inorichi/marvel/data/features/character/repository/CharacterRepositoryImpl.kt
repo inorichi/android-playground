@@ -8,7 +8,9 @@ import com.github.inorichi.marvel.domain.character.entity.CharacterOverview
 import com.github.inorichi.marvel.domain.character.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class CharacterRepositoryImpl @Inject constructor(
   private val localDataSource: CharacterLocalDataSource,
   private val remoteDataSource: CharacterRemoteDataSource

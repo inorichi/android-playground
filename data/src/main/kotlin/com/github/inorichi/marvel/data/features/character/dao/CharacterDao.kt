@@ -1,4 +1,4 @@
-package com.github.inorichi.marvel.data.features.character.local
+package com.github.inorichi.marvel.data.features.character.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

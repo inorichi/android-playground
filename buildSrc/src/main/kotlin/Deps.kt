@@ -42,12 +42,15 @@ object Deps {
     const val compose = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
   }
 
-  const val okhttp = "com.squareup.okhttp3:okhttp:4.9.2"
+  object OkHttp {
+    private const val version = "4.9.2"
+    const val core = "com.squareup.okhttp3:okhttp:$version"
+    const val mock = "com.squareup.okhttp3:mockwebserver:$version"
+  }
 
   object Retrofit {
     private const val version = "2.9.0"
     const val core = "com.squareup.retrofit2:retrofit:2.9.0"
-    const val serialization = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
   }
 
   object Room {

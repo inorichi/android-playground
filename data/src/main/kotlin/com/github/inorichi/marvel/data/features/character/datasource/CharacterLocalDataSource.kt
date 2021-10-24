@@ -8,7 +8,9 @@ import com.github.inorichi.marvel.domain.character.entity.CharacterOverview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class CharacterLocalDataSource @Inject constructor(
   database: AppDatabase
 ) {
