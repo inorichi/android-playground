@@ -10,8 +10,8 @@ import retrofit2.Retrofit
 import java.lang.reflect.Type
 
 /**
- * A custom json decoder to wrap any decoding exception as a [MarvelApiException.JsonDecodingError]
- * using kotlin serialization.
+ * A custom json decoder for Retrofit using kotlin serialization to wrap any decoding exception as
+ * a [MarvelApiException.JsonDecodingError]
  */
 class MarvelApiJsonDecoder : Converter.Factory() {
 
@@ -26,9 +26,13 @@ class MarvelApiJsonDecoder : Converter.Factory() {
   }
 
   private fun <T> fromResponseBody(loader: DeserializationStrategy<T>, body: ResponseBody): T {
+    val content = try {
+      body.string()
+    } catch (error: Exception) {
+      throw MarvelApiException.UnreachableError(error.message.orEmpty())
+    }
     return try {
-      val string = body.string()
-      json.decodeFromString(loader, string)
+      json.decodeFromString(loader, content)
     } catch (error: Exception) {
       throw MarvelApiException.JsonDecodingError(error.message.orEmpty())
     }
