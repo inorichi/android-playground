@@ -44,7 +44,6 @@ dependencies {
   implementation(Deps.Compose.ui)
   implementation(Deps.Compose.activity)
   implementation(Deps.Compose.preview)
- //implementation(Deps.Koin.core)
 
   implementation(Deps.Hilt.android)
   kapt(Deps.Hilt.compiler)

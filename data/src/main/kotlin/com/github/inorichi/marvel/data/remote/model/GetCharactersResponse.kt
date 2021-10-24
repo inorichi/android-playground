@@ -1,4 +1,4 @@
-package com.github.inorichi.marvel.data.remote.model.response
+package com.github.inorichi.marvel.data.remote.model
 
 import kotlinx.serialization.Serializable
 
@@ -13,7 +13,6 @@ data class GetCharactersResponse(
     val offset: Int,
     val limit: Int,
     val total: Int,
-    val count: Int,
     val results: List<Result>
   )
 

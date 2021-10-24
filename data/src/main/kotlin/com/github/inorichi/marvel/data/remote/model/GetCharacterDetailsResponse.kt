@@ -1,4 +1,4 @@
-package com.github.inorichi.marvel.data.remote.model.response
+package com.github.inorichi.marvel.data.remote.model
 
 import kotlinx.serialization.Serializable
 

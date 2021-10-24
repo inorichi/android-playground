@@ -1,4 +1,4 @@
-package com.github.inorichi.marvel.remote
+package com.github.inorichi.marvel.remote.api
 
 import io.kotest.core.test.TestContext
 

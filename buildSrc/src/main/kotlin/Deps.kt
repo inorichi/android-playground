@@ -17,6 +17,7 @@ object Deps {
     const val appCompat = "androidx.appcompat:appcompat:1.4.0-beta01"
     const val plugin = "com.android.tools.build:gradle:7.0.3"
     const val paging = "androidx.paging:paging-common:3.1.0-beta01"
+    const val test = "androidx.test:core-ktx:1.4.0"
   }
 
   object Compose {
@@ -63,8 +64,10 @@ object Deps {
     private const val version = "4.6.3"
     const val framework = "io.kotest:kotest-runner-junit5:$version"
     const val assertions = "io.kotest:kotest-assertions-core:$version"
+    const val robolectric = "io.kotest.extensions:kotest-extensions-robolectric:0.4.0"
   }
 
+  const val robolectric = "org.robolectric:robolectric:4.5.1"
   const val mockk = "io.mockk:mockk:1.12.0"
 
 }

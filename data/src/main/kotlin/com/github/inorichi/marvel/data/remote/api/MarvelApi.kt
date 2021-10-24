@@ -1,7 +1,7 @@
 package com.github.inorichi.marvel.data.remote.api
 
-import com.github.inorichi.marvel.data.remote.model.response.GetCharacterDetailsResponse
-import com.github.inorichi.marvel.data.remote.model.response.GetCharactersResponse
+import com.github.inorichi.marvel.data.remote.model.GetCharacterDetailsResponse
+import com.github.inorichi.marvel.data.remote.model.GetCharactersResponse
 import kotlinx.serialization.ExperimentalSerializationApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

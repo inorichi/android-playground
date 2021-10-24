@@ -14,8 +14,10 @@ android {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
   }
-
   defaultConfig {
+    minSdk = Config.minSdk
+    targetSdk = Config.targetSdk
+
     val localProperties = gradleLocalProperties(rootDir)
 
     buildConfigField("String", "API_BASE_URL", "\"https://gateway.marvel.com\"")
@@ -43,10 +45,13 @@ dependencies {
   kapt(Deps.Hilt.compiler)
   kapt(Deps.Room.compiler)
 
+  testImplementation(Deps.Android.test)
   testImplementation(Deps.Kotest.framework)
   testImplementation(Deps.Kotest.assertions)
+  testImplementation(Deps.Kotest.robolectric)
   testImplementation(Deps.mockk)
   testImplementation(Deps.OkHttp.mock)
+  testImplementation(Deps.robolectric)
 }
 
 kapt {

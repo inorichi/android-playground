@@ -1,4 +1,4 @@
-package com.github.inorichi.marvel.remote
+package com.github.inorichi.marvel.remote.api
 
 import com.github.inorichi.marvel.data.remote.api.MarvelApi
 import com.github.inorichi.marvel.data.remote.api.MarvelApiConstants
@@ -56,7 +56,6 @@ class MarvelApiTest : FunSpec({
     val result = marvelApi.getCharacters(0)
     result.code.shouldBe(200)
     result.data.offset.shouldBe(0)
-    result.data.count.shouldBe(20)
     result.data.results.shouldHaveSize(20)
   }
 
