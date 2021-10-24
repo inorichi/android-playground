@@ -10,10 +10,7 @@ plugins {
 
 android {
   compileSdk = Config.compileSdk
-  compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-  }
+
   defaultConfig {
     minSdk = Config.minSdk
     targetSdk = Config.targetSdk
@@ -24,6 +21,11 @@ android {
     buildConfigField("String", "API_TS", "\"${localProperties.getProperty("api.ts", "")}\"")
     buildConfigField("String", "API_KEY", "\"${localProperties.getProperty("api.key", "")}\"")
     buildConfigField("String", "API_HASH", "\"${localProperties.getProperty("api.hash", "")}\"")
+  }
+
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
   }
 }
 
