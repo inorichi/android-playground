@@ -1,13 +1,14 @@
 package com.github.inorichi.marvel.data.features.character.datasource
 
+import androidx.room.withTransaction
+import com.github.inorichi.marvel.data.R
 import com.github.inorichi.marvel.data.features.character.FakeCharacters
 import com.github.inorichi.marvel.data.features.character.dao.CharacterDao
 import com.github.inorichi.marvel.data.local.AppDatabase
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.mockk.*
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.single
 
 class CharacterLocalDataSourceTest : FunSpec({
 
@@ -18,24 +19,53 @@ class CharacterLocalDataSourceTest : FunSpec({
   beforeTest {
     every { appDatabase.characterDao() } returns charactersDao
     dataSource = CharacterLocalDataSource(appDatabase)
+
+    mockkStatic("androidx.room.RoomDatabaseKt") // Needed to mock withTransaction
+    val transactionLambda = slot<suspend () -> R>()
+    coEvery { appDatabase.withTransaction(capture(transactionLambda)) } coAnswers {
+      transactionLambda.captured.invoke()
+    }
   }
 
   afterTest {
     clearMocks(appDatabase)
   }
 
-  test("saves characters") {
-    coEvery { charactersDao.save(any()) } just Runs
+  test("saves a list of characters") {
+    coEvery { charactersDao.saveCharacters(any()) } just Runs
+
     dataSource.saveCharacters(FakeCharacters.firstPageLocal.data)
 
-    coVerify { charactersDao.save(any()) }
+    coVerify { charactersDao.saveCharacters(any()) }
   }
 
-  test("subscribes to character") {
-    coEvery { charactersDao.subscribeById(1) } returns flowOf(FakeCharacters.singleDb)
-    val result = dataSource.subscribeById(1)
+  test("saves the details of a character and its relations") {
+    coEvery { charactersDao.saveCharacter(any()) } just Runs
+    coEvery { charactersDao.saveCharacterComics(any()) } just Runs
+    coEvery { charactersDao.saveCharacterSeries(any()) } just Runs
 
-    result.single().shouldBe(FakeCharacters.singleDetails)
+    dataSource.saveCharacterDetails(FakeCharacters.singleDetails)
+
+    coVerify { charactersDao.saveCharacter(any()) }
+    coVerify { charactersDao.saveCharacterComics(any()) }
+    coVerify { charactersDao.saveCharacterSeries(any()) }
+  }
+
+  test("returns a character") {
+    coEvery { charactersDao.getCharacter(1) } returns FakeCharacters.singleDb
+
+    val result = dataSource.getCharacterDetails(1)
+
+    result.shouldBe(FakeCharacters.singleDetails)
+  }
+
+  test("returns no character") {
+    coEvery { charactersDao.getCharacter(1) } returns FakeCharacters.singleDb
+    coEvery { charactersDao.getCharacter(2) } returns null
+
+    val result = dataSource.getCharacterDetails(2)
+
+    result.shouldBeNull()
   }
 
 })

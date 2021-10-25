@@ -30,7 +30,6 @@ class CharacterLocalDataSource @Inject constructor(
       dao.saveCharacterComics(characterComics)
       dao.saveCharacterSeries(characterSeries)
     }
-
   }
 
   suspend fun getCharacterDetails(characterId: Int): CharacterDetails? {

@@ -9,7 +9,8 @@ object FakeCharacters {
   val singleDetails = CharacterDetails(
     id = 1,
     name = "Character 1",
-    thumbnail = "https://example.org/nonexistent.jpg",
+    description = "Some description",
+    thumbnail = "https://localhost/nonexistent.jpg",
     wikiUrl = null,
     comics = emptyList(),
     series = emptyList()
@@ -20,12 +21,12 @@ object FakeCharacters {
       CharacterOverview(
         id = 1,
         name = "Character 1",
-        thumbnail = "https://example.org/nonexistent.jpg"
+        thumbnail = "https://localhost/nonexistent.jpg"
       ),
       CharacterOverview(
         id = 2,
         name = "Character 2",
-        thumbnail = "https://example.org/nonexistent.jpg"
+        thumbnail = "https://localhost/nonexistent.jpg"
       )
     ),
     page = 1,
@@ -37,12 +38,12 @@ object FakeCharacters {
       CharacterOverview(
         id = 3,
         name = "Character 3",
-        thumbnail = "https://example.org/nonexistent.jpg"
+        thumbnail = "https://localhost/nonexistent.jpg"
       ),
       CharacterOverview(
         id = 4,
         name = "Character 4",
-        thumbnail = "https://example.org/nonexistent.jpg"
+        thumbnail = "https://localhost/nonexistent.jpg"
       )
     ),
     page = 2,

@@ -69,7 +69,11 @@ class MarvelApiTest : FunSpec({
 
     val result = marvelApi.getCharacterDetails(1011334)
     result.code.shouldBe(200)
-    // TODO
+    result.data.results.shouldHaveSize(1)
+    val character = result.data.results.first()
+    character.name.shouldBe("3-D Man")
+    character.comics.items.shouldHaveSize(12)
+    character.series.items.shouldHaveSize(3)
   }
 
   test("throws unauthorized error when API constants are not defined") {

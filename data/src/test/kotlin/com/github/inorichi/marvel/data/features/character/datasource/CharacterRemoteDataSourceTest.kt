@@ -6,6 +6,8 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.shouldBe
 import io.mockk.clearMocks
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -60,5 +62,20 @@ class CharacterRemoteDataSourceTest : FunSpec({
     result.hasPreviousPage.shouldBeFalse()
     result.hasNextPage.shouldBeFalse()
   }
+
+  test("retrieves the details of a character") {
+    coEvery { api.getCharacterDetails(any()) } returns FakeCharacters.singleDetailsRemote
+    val result = dataSource.getCharacterDetails(1)
+
+    result.shouldNotBeNull()
+    result.id.shouldBe(1)
+    result.name.shouldBe("Character 1")
+    result.description.shouldBe("Some description")
+    result.thumbnail.shouldBe("https://localhost/nonexistent.jpg")
+    result.comics.shouldHaveSize(2)
+    result.series.shouldHaveSize(2)
+    result.wikiUrl.shouldBe("https://localhost/character_1")
+  }
+
 
 })

@@ -1,8 +1,12 @@
 package com.github.inorichi.marvel.data.features.character
 
-import com.github.inorichi.marvel.domain.base.PageResult
 import com.github.inorichi.marvel.data.features.character.model.Character
+import com.github.inorichi.marvel.data.features.character.model.CharacterComic
+import com.github.inorichi.marvel.data.features.character.model.CharacterSeries
+import com.github.inorichi.marvel.data.features.character.model.CharacterWithRelations
+import com.github.inorichi.marvel.data.remote.model.GetCharacterDetailsResponse
 import com.github.inorichi.marvel.data.remote.model.GetCharactersResponse
+import com.github.inorichi.marvel.domain.base.PageResult
 import com.github.inorichi.marvel.domain.character.entity.CharacterDetails
 import com.github.inorichi.marvel.domain.character.entity.CharacterOverview
 
@@ -13,12 +17,12 @@ object FakeCharacters {
       CharacterOverview(
         id = 1,
         name = "Character 1",
-        thumbnail = "https://example.org/nonexistent.jpg"
+        thumbnail = "https://localhost/nonexistent.jpg"
       ),
       CharacterOverview(
         id = 2,
         name = "Character 2",
-        thumbnail = "https://example.org/nonexistent.jpg"
+        thumbnail = "https://localhost/nonexistent.jpg"
       )
     ),
     page = 1,
@@ -26,23 +30,29 @@ object FakeCharacters {
   )
 
   val dbPage = listOf(
-    Character(1, "Character 1", "https://example.org/nonexistent.jpg"),
-    Character(2, "Character 2", "https://example.org/nonexistent.jpg"),
+    Character(1, "Character 1", "https://localhost/nonexistent.jpg"),
+    Character(2, "Character 2", "https://localhost/nonexistent.jpg"),
   )
 
   val singleDetails = CharacterDetails(
     id = 1,
     name = "Character 1",
-    thumbnail = "https://example.org/nonexistent.jpg",
+    description = "Some description",
+    thumbnail = "https://localhost/nonexistent.jpg",
     wikiUrl = null,
     comics = emptyList(),
     series = emptyList()
   )
 
-  val singleDb = Character(
-    id = 1,
-    name = "Character 1",
-    thumbnail = "https://example.org/nonexistent.jpg"
+  val singleDb = CharacterWithRelations(
+    character = Character(
+      id = 1,
+      name = "Character 1",
+      description = "Some description",
+      thumbnail = "https://localhost/nonexistent.jpg",
+    ),
+    comics = emptyList(),
+    series = emptyList()
   )
 
   val firstPageRemote = GetCharactersResponse(
@@ -56,12 +66,61 @@ object FakeCharacters {
           id = id,
           name = "Character $id",
           thumbnail = GetCharactersResponse.Thumbnail(
-            path = "https://example.org/nonexistent",
+            path = "https://localhost/nonexistent",
             extension = "jpg"
           )
         )
       }
     )
+  )
+
+  val singleDetailsRemote = GetCharacterDetailsResponse(
+    code = 200,
+    GetCharacterDetailsResponse.Data(
+      results = IntRange(1, 20).map { id ->
+        GetCharacterDetailsResponse.Result(
+          id = id,
+          name = "Character $id",
+          thumbnail = GetCharacterDetailsResponse.Thumbnail(
+            path = "https://localhost/nonexistent",
+            extension = "jpg"
+          ),
+          description = "Some description",
+          comics = GetCharacterDetailsResponse.ContentItems(
+            items = IntRange(1, 2).map { comicId ->
+              GetCharacterDetailsResponse.Comic(
+                name = "Comic $comicId",
+                resourceURI = "https://localhost/comic_$comicId"
+              )
+            }
+          ),
+          series = GetCharacterDetailsResponse.ContentItems(
+            items = IntRange(1, 2).map { seriesId ->
+              GetCharacterDetailsResponse.Series(
+                name = "Comic $seriesId",
+                resourceURI = "https://localhost/comic_$seriesId"
+              )
+            }
+          ),
+          urls = listOf(
+            GetCharacterDetailsResponse.Url(
+              type = "wiki",
+              url = "https://localhost/character_$id"
+            )
+          )
+        )
+      }
+    )
+  )
+
+  fun getComicList(characterId: Int) = listOf(
+    CharacterComic(characterId, "Comic 1", "https://localhost/comic_1"),
+    CharacterComic(characterId, "Comic 2", "https://localhost/comic_2")
+  )
+
+  fun getSeriesList(characterId: Int) = listOf(
+    CharacterSeries(characterId, "Series 1", "https://localhost/series_1"),
+    CharacterSeries(characterId, "Series 2", "https://localhost/series_2")
   )
 
 }

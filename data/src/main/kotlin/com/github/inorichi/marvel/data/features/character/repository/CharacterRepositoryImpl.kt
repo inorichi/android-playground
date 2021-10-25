@@ -36,7 +36,7 @@ class CharacterRepositoryImpl @Inject constructor(
       }
       character
     } catch (error: MarvelApiException) {
-      // If an error occurs error, try to fetch from local data source or rethrow
+      // If an error occurs, try to fetch from local data source or rethrow
       localDataSource.getCharacterDetails(characterId) ?: throw error
     }
   }

@@ -10,9 +10,6 @@ data class GetCharacterDetailsResponse(
 
   @Serializable
   data class Data(
-    val offset: Int,
-    val limit: Int,
-    val total: Int,
     val results: List<Result>
   )
 
