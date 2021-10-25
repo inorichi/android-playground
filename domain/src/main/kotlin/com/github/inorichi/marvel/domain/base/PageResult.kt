@@ -1,4 +1,4 @@
-package com.github.inorichi.marvel.base
+package com.github.inorichi.marvel.domain.base
 
 data class PageResult<T>(
   val data: List<T>,

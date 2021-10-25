@@ -1,6 +1,6 @@
 package com.github.inorichi.marvel.domain.character
 
-import com.github.inorichi.marvel.base.PageResult
+import com.github.inorichi.marvel.domain.base.PageResult
 import com.github.inorichi.marvel.domain.character.entity.CharacterDetails
 import com.github.inorichi.marvel.domain.character.entity.CharacterOverview
 

@@ -1,6 +1,6 @@
 package com.github.inorichi.marvel.data.features.character
 
-import com.github.inorichi.marvel.base.PageResult
+import com.github.inorichi.marvel.domain.base.PageResult
 import com.github.inorichi.marvel.data.features.character.model.Character
 import com.github.inorichi.marvel.data.remote.model.GetCharactersResponse
 import com.github.inorichi.marvel.domain.character.entity.CharacterDetails

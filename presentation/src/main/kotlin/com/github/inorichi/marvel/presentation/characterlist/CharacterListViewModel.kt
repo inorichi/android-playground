@@ -8,6 +8,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.github.inorichi.marvel.domain.character.interactor.GetCharactersPaginated
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,8 +19,14 @@ class CharacterListViewModel @Inject constructor(
   private val getCharactersPaginated: GetCharactersPaginated
 ): ViewModel() {
 
-  val characters = Pager(PagingConfig(20)) { getCharactersPaginated }
+  private val charactersFlow = Pager(PagingConfig(20)) { getCharactersPaginated }
     .flow
     .cachedIn(viewModelScope)
+
+  val state = flowOf(
+    CharacterListViewState(
+      characters = charactersFlow
+    )
+  ).stateIn(viewModelScope, SharingStarted.Eagerly, CharacterListViewState(charactersFlow))
 
 }

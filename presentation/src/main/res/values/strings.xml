@@ -2,4 +2,6 @@
 <resources>
   <string name="character_list_title">Characters</string>
   <string name="back">Back</string>
+  <string name="retry">Retry</string>
+  <string name="character_list_load_error">There was an error while loading the characters.\nTap retry to try again.</string>
 </resources>

@@ -33,6 +33,7 @@ object Deps {
   object Accompanist {
     private const val version = "0.20.0"
     const val navigation = "com.google.accompanist:accompanist-navigation-animation:$version"
+    const val systemui = "com.google.accompanist:accompanist-systemuicontroller:$version"
   }
 
   object Hilt {

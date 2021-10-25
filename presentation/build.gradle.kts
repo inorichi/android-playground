@@ -33,7 +33,6 @@ kotlin {
       optIn("kotlin.RequiresOptIn")
       optIn("androidx.compose.animation.ExperimentalAnimationApi")
     }
-
   }
 }
 
@@ -52,6 +51,7 @@ dependencies {
   implementation(Deps.Compose.paging)
   implementation(Deps.Compose.coil)
   implementation(Deps.Accompanist.navigation)
+  implementation(Deps.Accompanist.systemui)
 
   implementation(Deps.Hilt.android)
   implementation(Deps.Hilt.compose)
