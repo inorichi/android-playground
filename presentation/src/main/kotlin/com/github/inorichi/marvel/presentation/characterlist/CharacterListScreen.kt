@@ -60,6 +60,9 @@ fun CharacterListScreen(
             onClickCharacter = onClickCharacter
           )
         }
+        loadState.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached -> {
+          CharacterListEmptyContent()
+        }
       }
     }
   }
@@ -155,6 +158,21 @@ fun CharacterListItemPlaceholder() {
 }
 
 @Composable
+fun CharacterListEmptyContent(modifier: Modifier = Modifier) {
+  Column(
+    modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(8.dp)
+  ) {
+    Text(":|", fontSize = 64.sp)
+    Text(
+      text = stringResource(R.string.character_list_empty),
+      textAlign = TextAlign.Center
+    )
+  }
+}
+
+@Composable
 fun CharacterListError(
   onRetry: () -> Unit,
   modifier: Modifier = Modifier
@@ -164,7 +182,7 @@ fun CharacterListError(
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(8.dp)
   ) {
-    Text(":(", fontSize = 64.sp, modifier = modifier)
+    Text(":(", fontSize = 64.sp)
     Text(
       text = stringResource(R.string.character_list_load_error),
       textAlign = TextAlign.Center

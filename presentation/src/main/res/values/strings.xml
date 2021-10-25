@@ -4,4 +4,5 @@
   <string name="back">Back</string>
   <string name="retry">Retry</string>
   <string name="character_list_load_error">There was an error while loading the characters.\nTap retry to try again.</string>
+  <string name="character_list_empty">No characters found</string>
 </resources>
