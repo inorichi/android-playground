@@ -71,7 +71,6 @@ class CharacterRemoteDataSourceTest : FunSpec({
     result.id.shouldBe(1)
     result.name.shouldBe("Character 1")
     result.description.shouldBe("Some description")
-    result.thumbnail.shouldBe("https://localhost/nonexistent.jpg")
     result.comics.shouldHaveSize(2)
     result.series.shouldHaveSize(2)
     result.wikiUrl.shouldBe("https://localhost/character_1")

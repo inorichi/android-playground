@@ -11,6 +11,6 @@ private fun GetCharactersResponse.Result.toEntity(): CharacterOverview {
   return CharacterOverview(
     id = id,
     name = name,
-    thumbnail = "${thumbnail.path}.${thumbnail.extension}"
+    thumbnail = "${thumbnail.path}/portrait_xlarge.${thumbnail.extension}"
   )
 }

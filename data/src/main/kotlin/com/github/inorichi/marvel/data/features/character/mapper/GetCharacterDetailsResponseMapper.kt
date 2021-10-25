@@ -14,7 +14,7 @@ private fun GetCharacterDetailsResponse.Result.toEntity(): CharacterDetails {
     id = id,
     name = name,
     description = description,
-    thumbnail = "${thumbnail.path}.${thumbnail.extension}",
+    thumbnail = "${thumbnail.path}/portrait_xlarge.${thumbnail.extension}",
     wikiUrl = urls.find { it.type == "wiki" }?.url,
     series = series.items.map { it.toEntity() },
     comics = comics.items.map { it.toEntity() },

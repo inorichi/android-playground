@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.github.inorichi.marvel.domain.character.entity.CharacterOverview
@@ -30,8 +31,9 @@ fun CharacterListItem(character: CharacterOverview, onClickCharacter: () -> Unit
     Image(
       painter = rememberImagePainter(character.thumbnail),
       contentDescription = character.name,
+      contentScale = ContentScale.Crop,
       alignment = Alignment.TopCenter,
-      modifier = Modifier.aspectRatio(1f)
+      modifier = Modifier.aspectRatio(3/4f)
     )
     Text(
       text = character.name,

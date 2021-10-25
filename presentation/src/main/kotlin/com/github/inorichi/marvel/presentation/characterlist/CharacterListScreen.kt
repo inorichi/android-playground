@@ -22,7 +22,7 @@ import com.github.inorichi.marvel.domain.character.entity.CharacterOverview
 import com.github.inorichi.marvel.presentation.R
 import com.github.inorichi.marvel.presentation.characterlist.components.CharacterListContent
 import com.github.inorichi.marvel.presentation.characterlist.components.CharacterListEmptyContent
-import com.github.inorichi.marvel.presentation.characterlist.components.CharacterListError
+import com.github.inorichi.marvel.presentation.characterlist.components.CharacterListErrorContent
 
 @Composable
 fun CharacterListScreen(
@@ -57,7 +57,7 @@ fun CharacterListScreen(
           CharacterListEmptyContent()
         }
         CharacterListScreenState.Error -> {
-          CharacterListError(onRetry = { lazyCharacters.retry() })
+          CharacterListErrorContent(onRetry = { lazyCharacters.retry() })
         }
       }
     }

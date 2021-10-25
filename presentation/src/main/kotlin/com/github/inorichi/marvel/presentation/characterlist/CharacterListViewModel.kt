@@ -19,7 +19,7 @@ class CharacterListViewModel @Inject constructor(
   private val getCharactersPaginated: GetCharactersPaginated
 ): ViewModel() {
 
-  private val charactersFlow = Pager(PagingConfig(20)) { getCharactersPaginated }
+  private val charactersFlow = Pager(PagingConfig(pageSize = 20)) { getCharactersPaginated }
     .flow
     .cachedIn(viewModelScope)
 
