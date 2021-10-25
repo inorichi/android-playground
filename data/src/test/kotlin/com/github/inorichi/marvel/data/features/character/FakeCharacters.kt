@@ -39,7 +39,6 @@ object FakeCharacters {
     name = "Character 1",
     description = "Some description",
     thumbnail = "https://localhost/nonexistent.jpg",
-    wikiUrl = null,
     comics = emptyList(),
     series = emptyList()
   )
@@ -101,12 +100,6 @@ object FakeCharacters {
                 resourceURI = "https://localhost/comic_$seriesId"
               )
             }
-          ),
-          urls = listOf(
-            GetCharacterDetailsResponse.Url(
-              type = "wiki",
-              url = "https://localhost/character_$id"
-            )
           )
         )
       }

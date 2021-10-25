@@ -11,7 +11,5 @@ data class Character(
   val thumbnail: String,
 
   @ColumnInfo(defaultValue = "")
-  val description: String = "",
-  @ColumnInfo(defaultValue = "")
-  val wikiUrl: String? = null
+  val description: String = ""
 )

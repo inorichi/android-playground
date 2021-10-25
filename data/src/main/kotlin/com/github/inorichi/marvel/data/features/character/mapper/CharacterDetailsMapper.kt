@@ -13,8 +13,7 @@ fun CharacterDetails.toDbModel(): Character {
     id = id,
     name = name,
     thumbnail = thumbnail,
-    description = description,
-    wikiUrl = wikiUrl
+    description = description
   )
 }
 
@@ -40,7 +39,6 @@ fun CharacterWithRelations.toEntity(): CharacterDetails {
     name = character.name,
     thumbnail = character.thumbnail,
     description = character.description,
-    wikiUrl = character.wikiUrl,
     comics = comics.map { it.toEntity() },
     series = series.map { it.toEntity() }
   )

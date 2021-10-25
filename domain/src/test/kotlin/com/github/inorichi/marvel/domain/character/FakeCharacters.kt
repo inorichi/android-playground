@@ -11,7 +11,6 @@ object FakeCharacters {
     name = "Character 1",
     description = "Some description",
     thumbnail = "https://localhost/nonexistent.jpg",
-    wikiUrl = null,
     comics = emptyList(),
     series = emptyList()
   )

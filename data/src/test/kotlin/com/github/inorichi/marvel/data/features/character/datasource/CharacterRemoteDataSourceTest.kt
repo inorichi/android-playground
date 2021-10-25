@@ -73,7 +73,6 @@ class CharacterRemoteDataSourceTest : FunSpec({
     result.description.shouldBe("Some description")
     result.comics.shouldHaveSize(2)
     result.series.shouldHaveSize(2)
-    result.wikiUrl.shouldBe("https://localhost/character_1")
   }
 
 

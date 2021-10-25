@@ -5,7 +5,6 @@ data class CharacterDetails(
   val name: String,
   val description: String,
   val thumbnail: String,
-  val wikiUrl: String?,
   val comics: List<CharacterComic>,
   val series: List<CharacterSeries>
 )

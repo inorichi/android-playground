@@ -26,9 +26,8 @@ fun CharacterDetailsContent(
   modifier: Modifier = Modifier
 ) {
   LazyColumn(
-    modifier = modifier
-      .fillMaxSize()
-      .padding(16.dp)
+    modifier = modifier.fillMaxSize(),
+    contentPadding = PaddingValues(16.dp)
   ) {
     item {
       Box(
