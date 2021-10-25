@@ -1,12 +1,12 @@
 package com.github.inorichi.marvel.data.features.character.repository
 
-import com.github.inorichi.marvel.domain.base.PageResult
 import com.github.inorichi.marvel.data.features.character.datasource.CharacterLocalDataSource
 import com.github.inorichi.marvel.data.features.character.datasource.CharacterRemoteDataSource
+import com.github.inorichi.marvel.data.remote.api.MarvelApiException
+import com.github.inorichi.marvel.domain.base.PageResult
 import com.github.inorichi.marvel.domain.character.entity.CharacterDetails
 import com.github.inorichi.marvel.domain.character.entity.CharacterOverview
 import com.github.inorichi.marvel.domain.character.repository.CharacterRepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,8 +27,18 @@ class CharacterRepositoryImpl @Inject constructor(
     return characters
   }
 
-  override fun subscribeToCharacter(characterId: Int): Flow<CharacterDetails?> {
-    return localDataSource.subscribeById(characterId)
+  override suspend fun getCharacter(characterId: Int): CharacterDetails? {
+    // Get character from remote data source
+    return try {
+      val character = remoteDataSource.getCharacterDetails(characterId)
+      if (character != null) {
+        localDataSource.saveCharacterDetails(character)
+      }
+      character
+    } catch (error: MarvelApiException) {
+      // If an error occurs error, try to fetch from local data source or rethrow
+      localDataSource.getCharacterDetails(characterId) ?: throw error
+    }
   }
 
 }

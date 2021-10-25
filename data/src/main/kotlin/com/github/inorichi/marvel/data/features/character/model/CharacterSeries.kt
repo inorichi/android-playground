@@ -17,5 +17,5 @@ import androidx.room.ForeignKey
 data class CharacterSeries(
   val characterId: Int,
   val name: String,
-  val resourceUrl: String
+  val url: String
 )

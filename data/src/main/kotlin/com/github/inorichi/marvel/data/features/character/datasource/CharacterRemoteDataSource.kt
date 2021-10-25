@@ -1,9 +1,10 @@
 package com.github.inorichi.marvel.data.features.character.datasource
 
-import com.github.inorichi.marvel.domain.base.PageResult
 import com.github.inorichi.marvel.data.features.character.mapper.toEntity
 import com.github.inorichi.marvel.data.remote.api.MarvelApi
 import com.github.inorichi.marvel.data.remote.api.MarvelApiConstants
+import com.github.inorichi.marvel.domain.base.PageResult
+import com.github.inorichi.marvel.domain.character.entity.CharacterDetails
 import com.github.inorichi.marvel.domain.character.entity.CharacterOverview
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -21,6 +22,10 @@ class CharacterRemoteDataSource @Inject constructor(private val api: MarvelApi) 
       page = page,
       hasNextPage = hasNextPage
     )
+  }
+
+  suspend fun getCharacterDetails(characterId: Int): CharacterDetails? {
+    return api.getCharacterDetails(characterId).toEntity()
   }
 
 }
