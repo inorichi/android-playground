@@ -8,7 +8,6 @@
   <string name="character_details_empty">The character was not found</string>
   <string name="character_details_load_error">There was an error while loading the character details.\nTap retry to try again.</string>
   <string name="character_description">Description</string>
-  <string name="character_wiki_url">External page</string>
   <string name="character_series">Series</string>
   <string name="character_comics">Comics</string>
 </resources>
