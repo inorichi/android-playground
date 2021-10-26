@@ -16,7 +16,7 @@ class CharacterDetailsViewModel @Inject constructor(
   private val getCharacter: GetCharacter
 ) : ViewModel() {
 
-  private val characterId = savedStateHandle.get<Int>("characterId")!!
+  private val characterId = savedStateHandle.get<Int>(CHARACTER_KEY)!!
 
   private val mutableState = MutableStateFlow(CharacterDetailsViewState.Empty)
   val state: StateFlow<CharacterDetailsViewState> get() = mutableState
@@ -27,7 +27,7 @@ class CharacterDetailsViewModel @Inject constructor(
 
   fun getCharacter() {
     viewModelScope.launch {
-      mutableState.value = when (val result = getCharacter.await(characterId)) {
+      mutableState.value = when (val result = getCharacter(characterId)) {
         is GetCharacter.Result.Success -> {
            CharacterDetailsViewState(result.character, false, null)
         }
@@ -39,6 +39,10 @@ class CharacterDetailsViewModel @Inject constructor(
         }
       }
     }
+  }
+
+  companion object {
+    const val CHARACTER_KEY = "characterId"
   }
 
 }

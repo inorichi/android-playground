@@ -8,7 +8,7 @@ class GetCharacter @Inject constructor(
   private val repository: CharacterRepository
 ) {
 
-  suspend fun await(characterId: Int): Result {
+  suspend operator fun invoke(characterId: Int): Result {
     return try {
       val character = repository.getCharacter(characterId)
       if (character != null) {

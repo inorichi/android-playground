@@ -23,7 +23,7 @@ class CharacterListViewModelTest : FunSpec({
   }
 
   afterTest {
-    clearMocks(getCharactersPaginated)
+    clearMocks(getCharactersPaginated, savedStateHandle)
   }
 
   test("initializes state with empty query") {
@@ -56,7 +56,7 @@ class CharacterListViewModelTest : FunSpec({
 
     viewModel.resetWithQuery("Iron Man")
 
-    verify(exactly = 1) { savedStateHandle.set<Any>(QUERY_KEY, any()) }
+    verify(exactly = 0) { savedStateHandle.set<Any>(QUERY_KEY, any()) }
   }
 
 })
