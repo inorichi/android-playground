@@ -11,4 +11,6 @@
   <string name="character_description">Description</string>
   <string name="character_series">Series</string>
   <string name="character_comics">Comics</string>
+  <string name="search">Search</string>
+  <string name="close">Close</string>
 </resources>

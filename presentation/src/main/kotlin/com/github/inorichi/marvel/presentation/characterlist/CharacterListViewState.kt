@@ -7,5 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Immutable
 data class CharacterListViewState(
-  val characters: Flow<PagingData<CharacterOverview>>
+  val characters: Flow<PagingData<CharacterOverview>>,
+  val query: String?
 )

@@ -17,7 +17,8 @@ interface MarvelApi {
   @GET("/v1/public/characters")
   suspend fun getCharacters(
     @Query("offset") offset: Int,
-    @Query("limit") limit: Int = MarvelApiConstants.PAGE_LIMIT
+    @Query("limit") limit: Int = MarvelApiConstants.PAGE_LIMIT,
+    @Query("nameStartsWith") name: String? = null
   ): GetCharactersResponse
 
   @GET("/v1/public/characters/{id}")

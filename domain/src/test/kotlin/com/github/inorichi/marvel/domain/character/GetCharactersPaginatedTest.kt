@@ -26,7 +26,7 @@ class GetCharactersPaginatedTest : FunSpec({
 
   test("loads the first page from repository") {
     coEvery { repository.getCharacters(1) } returns FakeCharacters.firstPage
-    val result = interactor.load(
+    val result = interactor().load(
       PagingSource.LoadParams.Refresh(key = 1, loadSize = 2, placeholdersEnabled = false)
     )
 
@@ -41,7 +41,7 @@ class GetCharactersPaginatedTest : FunSpec({
 
   test("loads the first page from repository without providing the key") {
     coEvery { repository.getCharacters(1) } returns FakeCharacters.firstPage
-    val result = interactor.load(
+    val result = interactor().load(
       PagingSource.LoadParams.Refresh(key = null, loadSize = 2, placeholdersEnabled = false)
     )
 
@@ -53,7 +53,7 @@ class GetCharactersPaginatedTest : FunSpec({
 
   test("loads the second page from repository") {
     coEvery { repository.getCharacters(2) } returns FakeCharacters.secondPage
-    val result = interactor.load(
+    val result = interactor().load(
       PagingSource.LoadParams.Refresh(key = 2, loadSize = 2, placeholdersEnabled = false)
     )
 
@@ -65,7 +65,7 @@ class GetCharactersPaginatedTest : FunSpec({
 
   test("fails to load a page") {
     coEvery { repository.getCharacters(1) } throws Exception("Failed to load page")
-    val result = interactor.load(
+    val result = interactor().load(
       PagingSource.LoadParams.Refresh(key = 1, loadSize = 2, placeholdersEnabled = false)
     )
 
@@ -79,7 +79,7 @@ class GetCharactersPaginatedTest : FunSpec({
       config = PagingConfig(pageSize = 2),
       leadingPlaceholderCount = 0
     )
-    val result = interactor.getRefreshKey(state)
+    val result = interactor().getRefreshKey(state)
 
     result.shouldBeNull()
   }
@@ -95,7 +95,7 @@ class GetCharactersPaginatedTest : FunSpec({
       config = PagingConfig(pageSize = 2),
       leadingPlaceholderCount = 0
     )
-    val result = interactor.getRefreshKey(state)
+    val result = interactor().getRefreshKey(state)
 
     result.shouldBe(1)
   }
@@ -111,7 +111,7 @@ class GetCharactersPaginatedTest : FunSpec({
       config = PagingConfig(pageSize = 2),
       leadingPlaceholderCount = 0
     )
-    val result = interactor.getRefreshKey(state)
+    val result = interactor().getRefreshKey(state)
 
     result.shouldBeNull()
   }

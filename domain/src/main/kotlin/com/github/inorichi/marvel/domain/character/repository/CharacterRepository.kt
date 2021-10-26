@@ -6,7 +6,7 @@ import com.github.inorichi.marvel.domain.character.entity.CharacterOverview
 
 interface CharacterRepository {
 
-  suspend fun getCharacters(page: Int): PageResult<CharacterOverview>
+  suspend fun getCharacters(page: Int, query: String? = null): PageResult<CharacterOverview>
 
   suspend fun getCharacter(characterId: Int): CharacterDetails?
 

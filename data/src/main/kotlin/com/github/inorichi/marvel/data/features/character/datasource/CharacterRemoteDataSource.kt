@@ -12,9 +12,13 @@ import javax.inject.Singleton
 @Singleton
 class CharacterRemoteDataSource @Inject constructor(private val api: MarvelApi) {
 
-  suspend fun getCharacters(page: Int): PageResult<CharacterOverview> {
+  suspend fun getCharacters(page: Int, query: String? = null): PageResult<CharacterOverview> {
     val offset = (page - 1) * MarvelApiConstants.PAGE_LIMIT
-    val characters = api.getCharacters(offset = offset, limit = MarvelApiConstants.PAGE_LIMIT)
+    val characters = api.getCharacters(
+      offset = offset,
+      limit = MarvelApiConstants.PAGE_LIMIT,
+      name = query
+    )
     val data = characters.toEntity()
     val hasNextPage = with(characters.data) { offset + limit < total }
     return PageResult(

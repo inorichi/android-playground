@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -20,6 +19,7 @@ import com.github.inorichi.marvel.presentation.R
 import com.github.inorichi.marvel.presentation.characterlist.components.CharacterListContent
 import com.github.inorichi.marvel.presentation.characterlist.components.CharacterListEmptyContent
 import com.github.inorichi.marvel.presentation.characterlist.components.CharacterListErrorContent
+import com.github.inorichi.marvel.presentation.characterlist.components.CharacterListToolbar
 
 @Composable
 fun CharacterListScreen(
@@ -52,7 +52,10 @@ fun CharacterListScreen(
 
   Scaffold(
     topBar = {
-      TopAppBar(title = { Text(stringResource(R.string.character_list_title)) })
+      CharacterListToolbar(
+        query = state.query,
+        onQueryChanged = { viewModel.resetWithQuery(it) }
+      )
     },
     scaffoldState = rememberScaffoldState(snackbarHostState = snackbarHostState)
   ) { paddingValues ->

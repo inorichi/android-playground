@@ -16,9 +16,9 @@ class CharacterRepositoryImpl @Inject constructor(
   private val remoteDataSource: CharacterRemoteDataSource
 ): CharacterRepository {
 
-  override suspend fun getCharacters(page: Int): PageResult<CharacterOverview> {
+  override suspend fun getCharacters(page: Int, query: String?): PageResult<CharacterOverview> {
     // Get characters from remote data source
-    val characters = remoteDataSource.getCharacters(page)
+    val characters = remoteDataSource.getCharacters(page, query)
 
     // Save them to the local data source
     localDataSource.saveCharacters(characters.data)
