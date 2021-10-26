@@ -1,8 +1,10 @@
 package com.github.inorichi.marvel.domain.character
 
 import com.github.inorichi.marvel.domain.base.PageResult
+import com.github.inorichi.marvel.domain.character.entity.CharacterComic
 import com.github.inorichi.marvel.domain.character.entity.CharacterDetails
 import com.github.inorichi.marvel.domain.character.entity.CharacterOverview
+import com.github.inorichi.marvel.domain.character.entity.CharacterSeries
 
 object FakeCharacters {
 
@@ -11,8 +13,14 @@ object FakeCharacters {
     name = "Character 1",
     description = "Some description",
     thumbnail = "https://localhost/nonexistent.jpg",
-    comics = emptyList(),
-    series = emptyList()
+    comics = listOf(
+      CharacterComic("Comic 1", "https://localhost/comic_1"),
+      CharacterComic("Comic 2", "https://localhost/comic_2"),
+    ),
+    series = listOf(
+      CharacterSeries("Series 1", "https://localhost/series_1"),
+      CharacterSeries("Series 2", "https://localhost/series_2"),
+    )
   )
 
   val firstPage = PageResult(

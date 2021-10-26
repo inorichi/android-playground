@@ -30,6 +30,10 @@ class GetCharacterTest : FunSpec({
     result.shouldBeInstanceOf<Success>()
     // Testing every field for coverage
     result.character.shouldBeEqualToComparingFields(FakeCharacters.singleDetails)
+    result.character.comics.first()
+      .shouldBeEqualToComparingFields(FakeCharacters.singleDetails.comics.first())
+    result.character.series.first()
+      .shouldBeEqualToComparingFields(FakeCharacters.singleDetails.series.first())
   }
 
   test("returns not found from repository") {
