@@ -52,11 +52,11 @@ class MarvelApiInterceptor @Inject constructor(): Interceptor {
       return response
     } catch (error: Exception) {
       throw when (error) {
-        is ConnectException -> MarvelApiException.UnreachableError(error.message.orEmpty())
-        is UnknownHostException -> MarvelApiException.UnreachableError(error.message.orEmpty())
-        is SocketTimeoutException -> MarvelApiException.UnreachableError(error.message.orEmpty())
+        is ConnectException -> MarvelApiException.UnreachableError(error.message.toString())
+        is UnknownHostException -> MarvelApiException.UnreachableError(error.message.toString())
+        is SocketTimeoutException -> MarvelApiException.UnreachableError(error.message.toString())
         is MarvelApiException -> error
-        else -> MarvelApiException.GenericError(error, error.message.orEmpty())
+        else -> MarvelApiException.GenericError(error, error.message.toString())
       }
     }
   }

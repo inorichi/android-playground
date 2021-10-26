@@ -9,6 +9,8 @@ import com.github.inorichi.marvel.data.remote.model.GetCharactersResponse
 import com.github.inorichi.marvel.domain.base.PageResult
 import com.github.inorichi.marvel.domain.character.entity.CharacterDetails
 import com.github.inorichi.marvel.domain.character.entity.CharacterOverview
+import com.github.inorichi.marvel.domain.character.entity.CharacterComic as CharacterComicEntity
+import com.github.inorichi.marvel.domain.character.entity.CharacterSeries as CharacterSeriesEntity
 
 object FakeCharacters {
 
@@ -39,8 +41,14 @@ object FakeCharacters {
     name = "Character 1",
     description = "Some description",
     thumbnail = "https://localhost/nonexistent.jpg",
-    comics = emptyList(),
-    series = emptyList()
+    comics = listOf(
+      CharacterComicEntity("Comic 1", "https://localhost/comic_1"),
+      CharacterComicEntity("Comic 2", "https://localhost/comic_2"),
+    ),
+    series = listOf(
+      CharacterSeriesEntity("Series 1", "https://localhost/series_1"),
+      CharacterSeriesEntity("Series 2", "https://localhost/series_2"),
+    )
   )
 
   val singleDb = CharacterWithRelations(
@@ -50,8 +58,14 @@ object FakeCharacters {
       description = "Some description",
       thumbnail = "https://localhost/nonexistent.jpg",
     ),
-    comics = emptyList(),
-    series = emptyList()
+    comics = listOf(
+      CharacterComic(1, "Comic 1", "https://localhost/comic_1"),
+      CharacterComic(1, "Comic 2", "https://localhost/comic_2"),
+    ),
+    series = listOf(
+      CharacterSeries(1, "Series 1", "https://localhost/series_1"),
+      CharacterSeries(1, "Series 2", "https://localhost/series_2"),
+    )
   )
 
   val firstPageRemote = GetCharactersResponse(

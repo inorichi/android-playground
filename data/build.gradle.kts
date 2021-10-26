@@ -34,6 +34,12 @@ android {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
   }
+
+  buildTypes {
+    debug {
+      isTestCoverageEnabled = true
+    }
+  }
 }
 
 kotlin {
@@ -69,4 +75,12 @@ kapt {
 
 tasks.withType<Test> {
   useJUnitPlatform()
+}
+
+jacocoAndroidUnitTestReport {
+  excludes = excludes + listOf(
+    "**/hilt_aggregated_deps/**",
+    "**/AppDatabase_Impl*.*", // Not required since we actually test the Dao implementations
+    "**/data/remote/model/**/*serializer*.*", // Exclude kotlin serializers since they're unused
+  )
 }

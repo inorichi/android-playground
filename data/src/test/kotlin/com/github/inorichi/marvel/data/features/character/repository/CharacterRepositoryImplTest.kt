@@ -6,6 +6,7 @@ import com.github.inorichi.marvel.data.features.character.datasource.CharacterRe
 import com.github.inorichi.marvel.data.remote.api.MarvelApiException
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.mockk.*
 
@@ -72,6 +73,16 @@ class CharacterRepositoryImplTest : FunSpec({
 
     coVerify(exactly = 0) { localDataSource.saveCharacterDetails(any()) }
     coVerify { localDataSource.getCharacterDetails(1) }
+  }
+
+  test("does not find a character from remote data source") {
+    coEvery { remoteDataSource.getCharacterDetails(1) } returns null
+
+    val result = repository.getCharacter(1)
+
+    coVerify(exactly = 0) { localDataSource.saveCharacterDetails(any()) }
+    coVerify(exactly = 0) { localDataSource.getCharacterDetails(1) }
+    result.shouldBeNull()
   }
 
 })

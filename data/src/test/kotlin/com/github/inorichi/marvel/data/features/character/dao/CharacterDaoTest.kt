@@ -21,7 +21,9 @@ class CharacterDaoTest : FunSpec({
 
   beforeTest {
     val context = ApplicationProvider.getApplicationContext<Application>()
-    database = Room.databaseBuilder(context, AppDatabase::class.java, "marvel-db-test").build()
+    database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
+      .allowMainThreadQueries()
+      .build()
     dao = database.characterDao()
   }
 

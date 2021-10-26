@@ -12,15 +12,21 @@ import io.kotest.matchers.string.shouldNotBeBlank
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
+import okhttp3.Dns
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.SocketPolicy
+import java.net.InetAddress
+import java.net.UnknownHostException
+import java.time.Duration
 
 @Suppress("BlockingMethodInNonBlockingContext")
 class MarvelApiTest : FunSpec({
 
-  val okHttpClient = OkHttpClient()
+  val okHttpClient = OkHttpClient.Builder()
+    .readTimeout(Duration.ofMillis(100))
+    .build()
 
   lateinit var mockServer: MockWebServer
   lateinit var marvelApi: MarvelApi
@@ -120,11 +126,41 @@ class MarvelApiTest : FunSpec({
     error.code.shouldBe(500)
   }
 
-  test("throws unreachable") {
+  test("throws unreachable when there's a ConnectionException") {
     mockServer.shutdown()
 
     shouldThrow<MarvelApiException.UnreachableError> {
       marvelApi.getCharacters(0)
+    }
+  }
+
+  test("throws unreachable when there's a SocketTimeoutException") {
+    val response = MockResponse()
+      .setSocketPolicy(SocketPolicy.NO_RESPONSE)
+    mockServer.enqueue(response)
+
+    shouldThrow<MarvelApiException.UnreachableError> {
+      marvelApi.getCharacters(0)
+    }
+  }
+
+  test("throws unreachable when there's a UnknownHostException") {
+    val okHttpClient2 = okHttpClient.newBuilder()
+      .dns(object : Dns {
+        override fun lookup(hostname: String): List<InetAddress> {
+          throw UnknownHostException()
+        }
+      })
+      .build()
+
+    val marvelApi2 = MarvelApi.create(
+      okHttpClient = okHttpClient2,
+      marvelApiInterceptor = MarvelApiInterceptor(),
+      baseUrl = mockServer.url("/").toString()
+    )
+
+    shouldThrow<MarvelApiException.UnreachableError> {
+      marvelApi2.getCharacters(0)
     }
   }
 

@@ -29,12 +29,12 @@ class MarvelApiJsonDecoder : Converter.Factory() {
     val content = try {
       body.string()
     } catch (error: Exception) {
-      throw MarvelApiException.UnreachableError(error.message.orEmpty())
+      throw MarvelApiException.UnreachableError(error.message.toString())
     }
     return try {
       json.decodeFromString(loader, content)
     } catch (error: Exception) {
-      throw MarvelApiException.JsonDecodingError(error.message.orEmpty())
+      throw MarvelApiException.JsonDecodingError(error.message.toString())
     }
   }
 
