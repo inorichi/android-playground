@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
@@ -51,7 +52,10 @@ fun CharacterListScreen(
           )
         }
         CharacterListScreenState.Refreshing -> {
-          CircularProgressIndicator(color = Color.White)
+          CircularProgressIndicator(
+            color = Color.White,
+            modifier = Modifier.testTag("CharacterListLoading")
+          )
         }
         CharacterListScreenState.Empty -> {
           CharacterListEmptyContent()

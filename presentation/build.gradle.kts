@@ -3,6 +3,7 @@ plugins {
   kotlin("kapt")
   id("com.android.library")
   id("dagger.hilt.android.plugin")
+  id("com.dicedmelon.gradle.jacoco-android")
 }
 
 android {
@@ -11,6 +12,7 @@ android {
   defaultConfig {
     minSdk = Config.minSdk
     targetSdk = Config.targetSdk
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
   compileOptions {
@@ -24,6 +26,19 @@ android {
 
   composeOptions {
     kotlinCompilerExtensionVersion = Deps.Compose.version
+  }
+
+  buildTypes {
+    debug {
+      isTestCoverageEnabled = true
+    }
+  }
+
+  packagingOptions {
+    resources {
+      excludes += "META-INF/AL2.0"
+      excludes += "META-INF/LGPL2.1"
+    }
   }
 }
 
@@ -56,8 +71,17 @@ dependencies {
   implementation(Deps.Hilt.android)
   implementation(Deps.Hilt.compose)
   kapt(Deps.Hilt.compiler)
+
+  androidTestImplementation(Deps.Android.test)
+  androidTestImplementation(Deps.Mockk.android)
+  androidTestImplementation(Deps.Compose.test)
+  debugImplementation(Deps.Compose.testManifest)
 }
 
 kapt {
   correctErrorTypes = true
+}
+
+tasks.withType<Test> {
+  useJUnitPlatform()
 }

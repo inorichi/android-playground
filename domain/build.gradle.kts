@@ -1,6 +1,7 @@
 plugins {
   kotlin("android")
   id("com.android.library")
+  id("com.dicedmelon.gradle.jacoco-android")
 }
 
 android {
@@ -23,7 +24,7 @@ dependencies {
 
   testImplementation(Deps.Kotest.framework)
   testImplementation(Deps.Kotest.assertions)
-  testImplementation(Deps.mockk)
+  testImplementation(Deps.Mockk.jvm)
 }
 
 tasks.withType<Test> {

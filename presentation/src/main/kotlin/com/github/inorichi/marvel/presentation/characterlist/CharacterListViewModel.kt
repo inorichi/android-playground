@@ -1,6 +1,5 @@
 package com.github.inorichi.marvel.presentation.characterlist
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -15,7 +14,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterListViewModel @Inject constructor(
-  private val savedStateHandle: SavedStateHandle,
   private val getCharactersPaginated: GetCharactersPaginated
 ): ViewModel() {
 

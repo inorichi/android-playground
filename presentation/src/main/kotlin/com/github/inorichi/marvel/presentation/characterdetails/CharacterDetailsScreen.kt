@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.inorichi.marvel.presentation.R
@@ -22,7 +23,7 @@ import com.github.inorichi.marvel.presentation.characterdetails.components.Chara
 @Composable
 fun CharacterDetailsScreen(
   viewModel: CharacterDetailsViewModel = hiltViewModel(),
-  navigateUp: () -> Unit
+  navigateUp: () -> Unit = {}
 ) {
   val state by viewModel.state.collectAsState()
 
@@ -48,7 +49,10 @@ fun CharacterDetailsScreen(
     ) {
       when (state.asScreenState()) {
         CharacterDetailsScreenState.Loading -> {
-          CircularProgressIndicator(color = Color.White)
+          CircularProgressIndicator(
+            color = Color.White,
+            modifier = Modifier.testTag("CharacterDetailsLoading")
+          )
         }
         CharacterDetailsScreenState.Content -> {
           CharacterDetailsContent(character = state.character!!)

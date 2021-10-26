@@ -28,6 +28,8 @@ object Deps {
     const val activity = "androidx.activity:activity-compose:1.4.0-rc01"
     const val paging = "androidx.paging:paging-compose:1.0.0-alpha14"
     const val coil = "io.coil-kt:coil-compose:1.4.0"
+    const val test = "androidx.compose.ui:ui-test-junit4:$version"
+    const val testManifest = "androidx.compose.ui:ui-test-manifest:$version"
   }
 
   object Accompanist {
@@ -68,7 +70,18 @@ object Deps {
     const val robolectric = "io.kotest.extensions:kotest-extensions-robolectric:0.4.0"
   }
 
+  object Mockk {
+    const val version = "1.12.0"
+    const val jvm = "io.mockk:mockk:$version"
+    const val android = "io.mockk:mockk-android:$version"
+  }
+
   const val robolectric = "org.robolectric:robolectric:4.5.1"
-  const val mockk = "io.mockk:mockk:1.12.0"
+
+  object Jacoco {
+    // Current release does not work with the project, so using the snapshot
+    const val plugin = "com.dicedmelon.gradle:jacoco-android:0.1.5-SNAPSHOT"
+    const val toolVersion = "0.8.7"
+  }
 
 }

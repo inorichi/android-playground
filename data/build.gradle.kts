@@ -6,6 +6,7 @@ plugins {
   kotlin("plugin.serialization")
   id("com.android.library")
   id("dagger.hilt.android.plugin")
+  id("com.dicedmelon.gradle.jacoco-android")
 }
 
 android {
@@ -51,7 +52,7 @@ dependencies {
   testImplementation(Deps.Kotest.framework)
   testImplementation(Deps.Kotest.assertions)
   testImplementation(Deps.Kotest.robolectric)
-  testImplementation(Deps.mockk)
+  testImplementation(Deps.Mockk.jvm)
   testImplementation(Deps.OkHttp.mock)
   testImplementation(Deps.robolectric)
 }
