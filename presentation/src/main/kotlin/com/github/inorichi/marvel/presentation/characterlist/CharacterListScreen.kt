@@ -3,16 +3,12 @@ package com.github.inorichi.marvel.presentation.characterlist
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,13 +26,35 @@ fun CharacterListScreen(
   viewModel: CharacterListViewModel = hiltViewModel(),
   onClickCharacter: (Int) -> Unit = {}
 ) {
+  val context = LocalContext.current
   val state by viewModel.state.collectAsState()
   val lazyCharacters = state.characters.collectAsLazyPagingItems()
+  val snackbarHostState = remember { SnackbarHostState() }
+  val snackbarVisible by remember {
+    derivedStateOf { lazyCharacters.loadState.append is LoadState.Error }
+  }
+
+  // Manage snackbar to retry when the user clicks on retry or dismiss it when refreshing
+  LaunchedEffect(snackbarVisible) {
+    if (snackbarVisible) {
+      val result = snackbarHostState.showSnackbar(
+        message = context.getString(R.string.character_list_append_error),
+        actionLabel = context.getString(R.string.retry),
+        duration = SnackbarDuration.Indefinite
+      )
+      if (result == SnackbarResult.ActionPerformed) {
+        lazyCharacters.retry()
+      }
+    } else {
+      snackbarHostState.currentSnackbarData?.dismiss()
+    }
+  }
 
   Scaffold(
     topBar = {
       TopAppBar(title = { Text(stringResource(R.string.character_list_title)) })
-    }
+    },
+    scaffoldState = rememberScaffoldState(snackbarHostState = snackbarHostState)
   ) { paddingValues ->
     Box(
       modifier = Modifier
@@ -77,7 +95,7 @@ private fun LazyPagingItems<CharacterOverview>.asScreenState(): CharacterListScr
     loadState.refresh is LoadState.Loading -> {
       CharacterListScreenState.Refreshing
     }
-    loadState.refresh is LoadState.Error || loadState.append is LoadState.Error -> {
+    loadState.refresh is LoadState.Error -> {
       CharacterListScreenState.Error
     }
     itemCount > 0 -> {
