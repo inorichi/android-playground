@@ -1,4 +1,4 @@
-package com.github.inorichi.marvel.presentation.characterlist
+package com.github.inorichi.marvel.presentation.characterdetails
 
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
@@ -8,9 +8,6 @@ import androidx.compose.ui.test.onNodeWithText
 import com.github.inorichi.marvel.domain.character.entity.CharacterComic
 import com.github.inorichi.marvel.domain.character.entity.CharacterDetails
 import com.github.inorichi.marvel.domain.character.entity.CharacterSeries
-import com.github.inorichi.marvel.presentation.characterdetails.CharacterDetailsScreen
-import com.github.inorichi.marvel.presentation.characterdetails.CharacterDetailsViewModel
-import com.github.inorichi.marvel.presentation.characterdetails.CharacterDetailsViewState
 import com.github.inorichi.marvel.presentation.main.MainTheme
 import io.mockk.every
 import io.mockk.mockk

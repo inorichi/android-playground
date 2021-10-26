@@ -82,6 +82,11 @@ dependencies {
   androidTestImplementation(Deps.Mockk.android)
   androidTestImplementation(Deps.Compose.test)
   debugImplementation(Deps.Compose.testManifest)
+
+  testImplementation(Deps.Kotest.framework)
+  testImplementation(Deps.Kotest.assertions)
+  testImplementation(Deps.Mockk.jvm)
+  testImplementation(Deps.Kotlin.Coroutines.test)
 }
 
 kapt {

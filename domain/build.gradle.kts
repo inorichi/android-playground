@@ -27,6 +27,7 @@ android {
 dependencies {
   implementation(Deps.Hilt.android)
   api(Deps.Android.paging)
+  api(Deps.Kotlin.Coroutines.core)
 
   testImplementation(Deps.Kotest.framework)
   testImplementation(Deps.Kotest.assertions)

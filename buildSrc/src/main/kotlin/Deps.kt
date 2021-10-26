@@ -10,6 +10,12 @@ object Deps {
       const val json = "org.jetbrains.kotlinx:kotlinx-serialization-json:$version"
       const val plugin = "org.jetbrains.kotlin:kotlin-serialization:${Kotlin.version}"
     }
+
+    object Coroutines {
+      private const val version = "1.5.2"
+      const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+      const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
+    }
   }
 
   object Android {
