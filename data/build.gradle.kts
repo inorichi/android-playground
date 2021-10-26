@@ -24,6 +24,12 @@ android {
     buildConfigField("String", "API_HASH", "\"${localProperties.getProperty("api.hash", "")}\"")
   }
 
+  sourceSets {
+    named("main") {
+      java.srcDir("src/main/kotlin")
+    }
+  }
+
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
