@@ -15,7 +15,9 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 import com.github.inorichi.marvel.presentation.R
 
 @Composable
@@ -24,26 +26,36 @@ fun CharacterListToolbar(
   onQueryChanged: (String) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  var forceShowSearch by remember {
-    mutableStateOf(!query.isNullOrBlank())
-  }
-  val shouldShowSearch by remember {
-    derivedStateOf { !query.isNullOrBlank() || forceShowSearch }
+  var editMode by remember {
+    mutableStateOf(false)
   }
 
-  if (!shouldShowSearch) {
-    CharacterListMainToolbar(
-      onSearchClick = { forceShowSearch = true },
-      modifier = modifier
-    )
-  } else {
-    CharacterListSearchToolbar(
+  if (editMode) {
+    CharacterListEditToolbar(
       query = query.orEmpty(),
       onCloseClick = {
         onQueryChanged("")
-        forceShowSearch = false
+        editMode = false
       },
-      onQueryChanged = onQueryChanged,
+      onQueryChanged = {
+        onQueryChanged(it)
+        editMode = false
+      },
+      modifier = modifier
+    )
+  } else if (!query.isNullOrBlank()) {
+    CharacterListQueryToolbar(
+      query = query,
+      onCloseClick = {
+        onQueryChanged("")
+        editMode = false
+      },
+      onSearchClick = { editMode = true },
+      modifier = modifier
+    )
+  } else {
+    CharacterListMainToolbar(
+      onSearchClick = { editMode = true },
       modifier = modifier
     )
   }
@@ -66,7 +78,30 @@ private fun CharacterListMainToolbar(
 }
 
 @Composable
-private fun CharacterListSearchToolbar(
+private fun CharacterListQueryToolbar(
+  query: String,
+  onCloseClick: () -> Unit,
+  onSearchClick: () -> Unit,
+  modifier: Modifier
+) {
+  TopAppBar(
+    modifier = modifier,
+    title = { Text(query) },
+    navigationIcon = {
+      IconButton(onClick = onCloseClick) {
+        Icon(Icons.Default.Close, contentDescription = stringResource(R.string.close))
+      }
+    },
+    actions = {
+      IconButton(onClick = onSearchClick) {
+        Icon(Icons.Default.Search, contentDescription = stringResource(R.string.search))
+      }
+    }
+  )
+}
+
+@Composable
+private fun CharacterListEditToolbar(
   query: String,
   onCloseClick: () -> Unit,
   onQueryChanged: (String) -> Unit,
@@ -74,21 +109,23 @@ private fun CharacterListSearchToolbar(
 ) {
   val focusRequester = remember { FocusRequester() }
   val focusManager = LocalFocusManager.current
-  var editorQuery by remember { mutableStateOf(query) }
+  var textFieldValue by remember {
+    mutableStateOf(TextFieldValue(text = query, selection = TextRange(query.length)))
+  }
 
   TopAppBar(
     modifier = modifier,
     title = {
       BasicTextField(
-        value = editorQuery,
-        onValueChange = { editorQuery = it },
+        value = textFieldValue,
+        onValueChange = { textFieldValue = it },
         modifier = Modifier.focusRequester(focusRequester),
         textStyle = LocalTextStyle.current.copy(color = LocalContentColor.current),
         cursorBrush = SolidColor(LocalContentColor.current),
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = {
-          onQueryChanged(editorQuery)
+          onQueryChanged(textFieldValue.text)
           focusManager.clearFocus()
         })
       )

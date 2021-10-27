@@ -67,7 +67,6 @@ dependencies {
 
   implementation(Deps.Compose.material)
   implementation(Deps.Compose.ui)
-  implementation(Deps.Compose.activity)
   implementation(Deps.Compose.preview)
   implementation(Deps.Compose.paging)
   implementation(Deps.Compose.coil)
