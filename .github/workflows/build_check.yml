@@ -1,0 +1,49 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    name: Build and test app
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Copy CI gradle.properties
+        run: |
+          mkdir -p ~/.gradle
+          cp .github/runner-files/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Add Marvel API key
+        run: |
+          touch ~/local.properties
+          echo "api.ts=${{ secrets.API_TS }}" >> ~/local.properties
+          echo "api.key=${{ secrets.API_KEY }}" >> ~/local.properties
+          echo "api.hash=${{ secrets.API_HASH }}" >> ~/local.properties
+
+      - name: Build and unit test app
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: assembleDebug jacocoTestDebugUnitTestReport
+          distribution-cache-enabled: true
+          dependencies-cache-enabled: true
+          configuration-cache-enabled: true
+
+      - name: Run instrumented tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedCheck
+
+      - name: Upload test coverage
+        uses: codecov/codecov-action@v1
