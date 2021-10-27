@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Build and test app
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: Clone repo
@@ -35,7 +35,7 @@ jobs:
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: assembleDebug jacocoTestDebugUnitTestReport
-          distribution-cache-enabled: true
+          distributions-cache-enabled: true
           dependencies-cache-enabled: true
           configuration-cache-enabled: true
 
