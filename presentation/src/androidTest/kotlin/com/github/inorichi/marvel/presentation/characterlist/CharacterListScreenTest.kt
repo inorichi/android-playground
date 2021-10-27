@@ -132,4 +132,24 @@ class CharacterListScreenTest {
       .assertIsDisplayed()
   }
 
+  @Test
+  fun should_show_search_toolbar_in_edit_mode() {
+    composeTestRule.setContent {
+      coEvery { repository.getCharacters(any()) } returns PageResult(emptyList(), 1, false)
+      val vm = CharacterListViewModel(savedStateHandle, getCharactersPaginated)
+
+      MainTheme {
+        CharacterListScreen(vm)
+      }
+    }
+
+    composeTestRule.onNodeWithContentDescription("Search")
+      .assertIsDisplayed()
+      .assertHasClickAction()
+      .performClick()
+
+    composeTestRule.onNodeWithContentDescription("Close")
+      .assertIsDisplayed()
+  }
+
 }

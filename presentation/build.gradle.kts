@@ -12,7 +12,7 @@ android {
   defaultConfig {
     minSdk = Config.minSdk
     targetSdk = Config.targetSdk
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "com.github.inorichi.marvel.CustomTestRunner"
   }
 
   sourceSets {
@@ -78,9 +78,13 @@ dependencies {
   kapt(Deps.Hilt.compiler)
 
   androidTestImplementation(Deps.Android.test)
+  androidTestImplementation(Deps.Android.testRunner)
   androidTestImplementation(Deps.Mockk.android)
   androidTestImplementation(Deps.Compose.test)
+  androidTestImplementation(Deps.Hilt.test)
+  androidTestImplementation(project(":data"))
   debugImplementation(Deps.Compose.testManifest)
+  kaptAndroidTest(Deps.Hilt.compiler)
 
   testImplementation(Deps.Kotest.framework)
   testImplementation(Deps.Kotest.assertions)

@@ -24,6 +24,7 @@ object Deps {
     const val plugin = "com.android.tools.build:gradle:7.0.3"
     const val paging = "androidx.paging:paging-common:3.1.0-beta01"
     const val test = "androidx.test:core-ktx:1.4.0"
+    const val testRunner = "androidx.test:runner:1.4.0"
   }
 
   object Compose {
@@ -49,6 +50,7 @@ object Deps {
     const val android = "com.google.dagger:hilt-android:$version"
     const val compiler = "com.google.dagger:hilt-android-compiler:$version"
     const val plugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
+    const val test = "com.google.dagger:hilt-android-testing:$version"
     const val compose = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
   }
 

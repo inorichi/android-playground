@@ -1,4 +1,4 @@
-package com.github.inorichi.marvel.data
+package com.github.inorichi.marvel
 
 import android.app.Application
 import androidx.room.Room
@@ -13,26 +13,20 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Cache
 import okhttp3.OkHttpClient
-import java.io.File
+import java.net.UnknownHostException
 import javax.inject.Singleton
 
-/**
- * Module for providing the Dagger dependencies to the rest of the application.
- */
 @Module
 @InstallIn(SingletonComponent::class)
-class DataModule {
+class TestDataModule {
 
   @Provides
   @Singleton
-  fun provideOkHttpClient(context: Application): OkHttpClient {
-    val cacheDir = File(context.cacheDir, "network_cache")
-    val cacheSize = 15L * 1024 * 1024 // 15 MB
-    val cache = Cache(cacheDir, cacheSize)
+  fun provideOkHttpClient(): OkHttpClient {
     return OkHttpClient.Builder()
-      .cache(cache)
+      // Just throw on any network connection attempt
+      .dns { throw UnknownHostException() }
       .build()
   }
 
