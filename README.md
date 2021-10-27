@@ -1,3 +1,5 @@
+![CI](https://github.com/inorichi/android-playground/workflows/CI/badge.svg?event=push) [![codecov](https://codecov.io/gh/inorichi/android-playground/branch/main/graph/badge.svg?token=nUNFrlhpS8)](https://codecov.io/gh/inorichi/android-playground)
+
 # Android playground
 
 This is a sample Android application with a strong focus on a clean architecture, automated unit and UI testing and continuous integration.
@@ -66,7 +68,7 @@ When the application is started, our Compose app will create a `Navigation` whic
 
 Now that `CharacterListViewModel` is instantiated, we can start requesting data to the `GetCharactersPaginated` use case by invoking it with a query parameter (`null` by default, which means list all characters) and this will return us an instance of a `PagingSource` to request data page by page. Every time a page is requested, it calls the method `getCharacters` of our `CharacterRepository` interface with the current page and query. Since Dagger has injected the dependency, we will actually be using the `CharacterRepositoryImpl` of our data module (to which the ViewModel does not have direct access thanks to the multi-module approach), and this repository will delegate the remote fetching to the `CharacterRemoteDataSource` that also delegates on a `MarvelApi` Retrofit instance (also injected) and this is where our request is actually made. When the data is available, it returns it to the `CharacterRemoteDataSource` where the response is mapped to an entity of our domain (called `CharacterOverview`) and our `CharacterLocalDataSource` saves the result on the `Room` database. Finally, the result is returned to the use case and then to the `PagingSource`.
 
-Since we developed the UI using Jetpack Compose, we have a reactive UI that is updated automatically whenever there's a new update to the `PagingSource` thanks to the `.collectAsLazyPagingItems()` function. While this request was being processed, we had a loading state in the screen, but now that our first page has arrived, we can start rendering the first page on the screen. 
+Since we developed the UI using Jetpack Compose, we have a reactive UI that is updated automatically whenever there's a new update to the `PagingSource` thanks to the `.collectAsLazyPagingItems()` function. While this request was being processed, we had a loading state in the screen, but now that our first page has arrived, we can start rendering the first page on the screen.
 
 We also account for any possible error (use cases MUST always handle any possible error thrown from the backend and return a custom `Result` class if needed), like a request failed due to network unavailable. In this case, an error page is shown, where we can retry our request. The UI will then go back to the loading state and finally the content state when available. Thanks to the Paging library, we will also request the following pages as the list is scrolled down.
 
