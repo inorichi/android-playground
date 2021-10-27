@@ -16,6 +16,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File
+import javax.inject.Singleton
 
 /**
  * Module for providing the Dagger dependencies to the rest of the application.
@@ -25,6 +26,7 @@ import java.io.File
 object DataModule {
 
   @Provides
+  @Singleton
   fun provideOkHttpClient(context: Application): OkHttpClient {
     val cacheDir = File(context.cacheDir, "network_cache")
     val cacheSize = 15L * 1024 * 1024 // 15 MB
@@ -35,6 +37,7 @@ object DataModule {
   }
 
   @Provides
+  @Singleton
   fun provideMarvelApi(
     okHttpClient: OkHttpClient,
     marvelApiInterceptor: MarvelApiInterceptor
@@ -43,6 +46,7 @@ object DataModule {
   }
 
   @Provides
+  @Singleton
   fun provideCharactersRepository(
     localDataSource: CharacterLocalDataSource,
     remoteDataSource: CharacterRemoteDataSource
@@ -51,6 +55,7 @@ object DataModule {
   }
 
   @Provides
+  @Singleton
   fun provideDatabase(context: Application): AppDatabase {
     return Room.databaseBuilder(context, AppDatabase::class.java, "marvel-db").build()
   }
