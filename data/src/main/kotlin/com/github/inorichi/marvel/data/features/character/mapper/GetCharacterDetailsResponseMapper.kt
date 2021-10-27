@@ -5,10 +5,16 @@ import com.github.inorichi.marvel.domain.character.entity.CharacterComic
 import com.github.inorichi.marvel.domain.character.entity.CharacterDetails
 import com.github.inorichi.marvel.domain.character.entity.CharacterSeries
 
+/**
+ * Converts a [GetCharacterDetailsResponse] API response to a domain entity.
+ */
 fun GetCharacterDetailsResponse.toEntity(): CharacterDetails? {
   return data.results.firstOrNull()?.toEntity()
 }
 
+/**
+ * Converts a [GetCharacterDetailsResponse.Result] to a domain entity.
+ */
 private fun GetCharacterDetailsResponse.Result.toEntity(): CharacterDetails {
   return CharacterDetails(
     id = id,
@@ -20,6 +26,9 @@ private fun GetCharacterDetailsResponse.Result.toEntity(): CharacterDetails {
   )
 }
 
+/**
+ * Converts a [GetCharacterDetailsResponse.Series] to a domain entity.
+ */
 private fun GetCharacterDetailsResponse.Series.toEntity(): CharacterSeries {
   return CharacterSeries(
     name = name,
@@ -27,6 +36,9 @@ private fun GetCharacterDetailsResponse.Series.toEntity(): CharacterSeries {
   )
 }
 
+/**
+ * Converts a [GetCharacterDetailsResponse.Comic] to a domain entity.
+ */
 private fun GetCharacterDetailsResponse.Comic.toEntity(): CharacterComic {
   return CharacterComic(
     name = name,

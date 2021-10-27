@@ -3,6 +3,9 @@ package com.github.inorichi.marvel.data.features.character.model
 import androidx.room.Entity
 import androidx.room.ForeignKey
 
+/**
+ * A Room entity for storing a [CharacterSeries].
+ */
 @Entity(
   foreignKeys = [
     ForeignKey(

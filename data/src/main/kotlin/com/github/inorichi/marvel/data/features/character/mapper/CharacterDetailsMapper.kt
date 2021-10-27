@@ -8,6 +8,9 @@ import com.github.inorichi.marvel.domain.character.entity.CharacterSeries
 import com.github.inorichi.marvel.data.features.character.model.CharacterComic as CharacterComicDb
 import com.github.inorichi.marvel.data.features.character.model.CharacterSeries as CharacterSeriesDb
 
+/**
+ * Converts the [CharacterDetails] entity to a database model.
+ */
 fun CharacterDetails.toDbModel(): Character {
   return Character(
     id = id,
@@ -17,6 +20,9 @@ fun CharacterDetails.toDbModel(): Character {
   )
 }
 
+/**
+ * Converts the [CharacterSeries] entity to a database model
+ */
 fun CharacterSeries.toDbModel(characterId: Int): CharacterSeriesDb {
   return CharacterSeriesDb(
     characterId = characterId,
@@ -25,6 +31,9 @@ fun CharacterSeries.toDbModel(characterId: Int): CharacterSeriesDb {
   )
 }
 
+/**
+ * Converts the [CharacterComic] entity to a database model.
+ */
 fun CharacterComic.toDbModel(characterId: Int): CharacterComicDb {
   return CharacterComicDb(
     characterId = characterId,
@@ -33,6 +42,9 @@ fun CharacterComic.toDbModel(characterId: Int): CharacterComicDb {
   )
 }
 
+/**
+ * Converts the [CharacterWithRelations] model to a domain entity.
+ */
 fun CharacterWithRelations.toEntity(): CharacterDetails {
   return CharacterDetails(
     id = character.id,
@@ -44,6 +56,9 @@ fun CharacterWithRelations.toEntity(): CharacterDetails {
   )
 }
 
+/**
+ * Converts the [CharacterComicDb] model to a domain entity.
+ */
 private fun CharacterComicDb.toEntity(): CharacterComic {
   return CharacterComic(
     name = name,
@@ -51,6 +66,9 @@ private fun CharacterComicDb.toEntity(): CharacterComic {
   )
 }
 
+/**
+ * Converts the [CharacterSeriesDb] model to a domain entity.
+ */
 private fun CharacterSeriesDb.toEntity(): CharacterSeries {
   return CharacterSeries(
     name = name,

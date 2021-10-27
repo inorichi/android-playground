@@ -10,12 +10,20 @@ import com.github.inorichi.marvel.domain.character.repository.CharacterRepositor
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Implementation of a [CharacterRepository] containing a [localDataSource] for local queries (db)
+ * and [remoteDataSource] for remote (API) queries.
+ */
 @Singleton
 class CharacterRepositoryImpl @Inject constructor(
   private val localDataSource: CharacterLocalDataSource,
   private val remoteDataSource: CharacterRemoteDataSource
 ): CharacterRepository {
 
+  /**
+   * Returns the requested [page] of characters with an optional [query] and saves them to the local
+   * source. Throws an exception if anything fails.
+   */
   override suspend fun getCharacters(page: Int, query: String?): PageResult<CharacterOverview> {
     // Get characters from remote data source
     val characters = remoteDataSource.getCharacters(page, query)
@@ -27,6 +35,10 @@ class CharacterRepositoryImpl @Inject constructor(
     return characters
   }
 
+  /**
+   * Returns the requested [characterId] and saves it to local source or null if it doesn't exist.
+   * Throws an exception if anything fails.
+   */
   override suspend fun getCharacter(characterId: Int): CharacterDetails? {
     // Get character from remote data source
     return try {

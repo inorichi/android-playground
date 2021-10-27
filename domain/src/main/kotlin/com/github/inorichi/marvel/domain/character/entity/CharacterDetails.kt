@@ -1,5 +1,8 @@
 package com.github.inorichi.marvel.domain.character.entity
 
+/**
+ * The details of a Marvel character.
+ */
 data class CharacterDetails(
   val id: Int,
   val name: String,

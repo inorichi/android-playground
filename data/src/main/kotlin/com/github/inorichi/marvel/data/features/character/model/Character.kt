@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * A Room entity for storing a [Character].
+ */
 @Entity
 data class Character(
   @PrimaryKey val id: Int,

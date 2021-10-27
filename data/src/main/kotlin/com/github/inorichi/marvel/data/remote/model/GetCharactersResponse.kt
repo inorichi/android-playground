@@ -2,6 +2,9 @@ package com.github.inorichi.marvel.data.remote.model
 
 import kotlinx.serialization.Serializable
 
+/**
+ * The response of the /characters/ endpoint.
+ */
 @Serializable
 data class GetCharactersResponse(
   val code: Int,

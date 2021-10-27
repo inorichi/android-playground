@@ -17,6 +17,9 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File
 
+/**
+ * Module for providing the Dagger dependencies to the rest of the application.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {

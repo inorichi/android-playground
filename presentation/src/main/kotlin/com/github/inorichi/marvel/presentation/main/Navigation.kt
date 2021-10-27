@@ -8,6 +8,10 @@ import com.github.inorichi.marvel.presentation.characterlist.CharacterListScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 
+/**
+ * The navigation controller of the application. It provides the routes and provides the navigate up
+ * functions.
+ */
 @Composable
 internal fun Navigation(
   navController: NavHostController,

@@ -16,16 +16,28 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
+/**
+ * View model of the character listing screen.
+ */
 @HiltViewModel
 class CharacterListViewModel @Inject constructor(
   private val savedStateHandle: SavedStateHandle,
   private val getCharactersPaginated: GetCharactersPaginated
 ): ViewModel() {
 
+  /**
+   * The initial query of the listing, usually null.
+   */
   private val initialQuery: String? = savedStateHandle[QUERY_KEY]
 
+  /**
+   * The current pagination scope, as it needs to be cancelled if the query changes.
+   */
   private var paginationScope = createPaginationScope()
 
+  /**
+   * The state of the screen. Exposed externally as a read-only [StateFlow].
+   */
   private val mutableState = MutableStateFlow(
     CharacterListViewState(
       characters = getCharactersFlow(initialQuery),
@@ -33,6 +45,9 @@ class CharacterListViewModel @Inject constructor(
   )
   val state: StateFlow<CharacterListViewState> get() = mutableState
 
+  /**
+   * Resets the pagination listing with a new [query].
+   */
   fun resetWithQuery(query: String? = null) {
     val newQuery = if (query.isNullOrBlank()) null else query
     if (newQuery == state.value.query) return
@@ -46,12 +61,19 @@ class CharacterListViewModel @Inject constructor(
     )
   }
 
+  /**
+   * Returns the paging flow for this [query] cached in the current [paginationScope].
+   */
   private fun getCharactersFlow(query: String?): Flow<PagingData<CharacterOverview>> {
     return Pager(PagingConfig(pageSize = 20)) { getCharactersPaginated(query) }
       .flow
       .cachedIn(paginationScope)
   }
 
+  /**
+   * Returns a new pagination scope with the [viewModelScope] as parent in order to be automatically
+   * cancelled when the view model is destroyed.
+   */
   private fun createPaginationScope(): CoroutineScope {
     return CoroutineScope(Job(viewModelScope.coroutineContext.job) + Dispatchers.Main)
   }

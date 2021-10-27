@@ -9,6 +9,9 @@ import com.github.inorichi.marvel.data.features.character.model.CharacterComic
 import com.github.inorichi.marvel.data.features.character.model.CharacterSeries
 import com.github.inorichi.marvel.data.features.character.model.CharacterWithRelations
 
+/**
+ * A character DAO interface for Room queries.
+ */
 @Dao
 interface CharacterDao {
 

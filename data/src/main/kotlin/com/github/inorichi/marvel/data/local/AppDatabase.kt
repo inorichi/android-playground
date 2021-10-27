@@ -7,6 +7,9 @@ import com.github.inorichi.marvel.data.features.character.model.Character
 import com.github.inorichi.marvel.data.features.character.model.CharacterComic
 import com.github.inorichi.marvel.data.features.character.model.CharacterSeries
 
+/**
+ * The application's Room database.
+ */
 @Database(entities = [
   Character::class,
   CharacterComic::class,

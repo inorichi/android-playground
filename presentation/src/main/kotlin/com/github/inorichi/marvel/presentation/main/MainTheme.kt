@@ -5,11 +5,14 @@ import androidx.compose.material.darkColors
 import androidx.compose.runtime.Composable
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
+/**
+ * The main theme of the application. It also applies the system bars colors.
+ */
 @Composable
 fun MainTheme(content: @Composable () -> Unit) {
   val systemUi = rememberSystemUiController()
   MaterialTheme(darkColors()) {
-    systemUi.setStatusBarColor(MaterialTheme.colors.surface.copy(alpha = 0.7f))
+    systemUi.setSystemBarsColor(MaterialTheme.colors.surface.copy(alpha = 0.7f))
     content()
   }
 }
