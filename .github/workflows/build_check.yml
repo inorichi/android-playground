@@ -26,10 +26,10 @@ jobs:
 
       - name: Add Marvel API key
         run: |
-          touch ~/local.properties
-          echo "api.ts=${{ secrets.API_TS }}" >> ~/local.properties
-          echo "api.key=${{ secrets.API_KEY }}" >> ~/local.properties
-          echo "api.hash=${{ secrets.API_HASH }}" >> ~/local.properties
+          touch ./local.properties
+          echo "api.ts=${{ secrets.API_TS }}" >> ./local.properties
+          echo "api.key=${{ secrets.API_KEY }}" >> ./local.properties
+          echo "api.hash=${{ secrets.API_HASH }}" >> ./local.properties
 
       - name: Build and unit test app
         uses: eskatos/gradle-command-action@v1
