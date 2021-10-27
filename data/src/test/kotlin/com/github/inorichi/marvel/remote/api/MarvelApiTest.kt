@@ -176,12 +176,22 @@ class MarvelApiTest : FunSpec({
   }
 
   test("throws generic errors") {
-    val response = MockResponse()
-      .setSocketPolicy(SocketPolicy.DISCONNECT_AT_START)
-    mockServer.enqueue(response)
+    val okHttpClient2 = okHttpClient.newBuilder()
+      .dns(object : Dns {
+        override fun lookup(hostname: String): List<InetAddress> {
+          throw Exception("A generic error")
+        }
+      })
+      .build()
+
+    val marvelApi2 = MarvelApi.create(
+      okHttpClient = okHttpClient2,
+      marvelApiInterceptor = MarvelApiInterceptor(),
+      baseUrl = mockServer.url("/").toString()
+    )
 
     shouldThrow<MarvelApiException.GenericError> {
-      marvelApi.getCharacters(0)
+      marvelApi2.getCharacters(0)
     }
   }
 
