@@ -1,9 +1,6 @@
 package com.github.inorichi.marvel.data.features.character.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.github.inorichi.marvel.data.features.character.model.Character
 import com.github.inorichi.marvel.data.features.character.model.CharacterComic
 import com.github.inorichi.marvel.data.features.character.model.CharacterSeries
@@ -15,6 +12,7 @@ import com.github.inorichi.marvel.data.features.character.model.CharacterWithRel
 @Dao
 interface CharacterDao {
 
+  @Transaction // Use transaction because it fetches from several tables
   @Query("SELECT * FROM character WHERE id = :characterId")
   suspend fun getCharacter(characterId: Int): CharacterWithRelations?
 

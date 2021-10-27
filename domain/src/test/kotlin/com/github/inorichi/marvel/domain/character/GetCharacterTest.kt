@@ -24,7 +24,7 @@ class GetCharacterTest : FunSpec({
   test("returns character from repository") {
     coEvery { repository.getCharacter(1) } returns FakeCharacters.singleDetails
 
-    val result = interactor.await(1)
+    val result = interactor(1)
 
     coVerify { repository.getCharacter(1) }
     result.shouldBeInstanceOf<Success>()
@@ -40,7 +40,7 @@ class GetCharacterTest : FunSpec({
     coEvery { repository.getCharacter(1) } returns FakeCharacters.singleDetails
     coEvery { repository.getCharacter(2) } returns null
 
-    val result = interactor.await(2)
+    val result = interactor(2)
 
     coVerify { repository.getCharacter(2) }
     result.shouldBeInstanceOf<NotFound>()
@@ -50,9 +50,9 @@ class GetCharacterTest : FunSpec({
     val error = Exception("fetching error")
     coEvery { repository.getCharacter(1) } throws error
 
-    val result = interactor.await(1)
+    val result = interactor(1)
 
-    coVerify { interactor.await(1) }
+    coVerify { interactor(1) }
     result.shouldBeInstanceOf<Error>()
     result.error.shouldBe(error)
   }
