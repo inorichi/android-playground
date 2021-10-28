@@ -22,13 +22,13 @@ More details for getting an API key can be found [here.](https://developer.marve
 
 ## Architecture
 
-The application architecture is built based on [Uncle Bob's Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) to enforce a proper separation of concerns, limiting boundaries and unidirectional data flow, the project has been divided into 4 modules:
+The application architecture is built based on [Uncle Bob's Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) to enforce a proper separation of concerns, limiting boundaries and unidirectional data flow. For this reason, the project has been divided into 4 modules:
 
 * `domain`: It contains the entities, repositories interfaces and use cases (interactors) of the application. This module's dependencies are as small as possible, and should never depend on any networking or persistency library.
 
 * `data`: It contains the networking and persistency libraries as well as the repository implementations of the `domain` layer through dependency injection.
 
-* `presentation`: It contains the UI and view models of the application. The view models receive in their constructor the `domain` use cases for fetching or updating the data. Note this module does not add a dependency on the `data` module.
+* `presentation`: It contains the UI and view models (using MVVM) of the application. The view models receive in their constructor the `domain` use cases for fetching or updating the data. Note this module does not add a dependency on the `data` module.
 
 * `app`: It's the top-most module, its only job is to bring together the other modules and provide the Android's `Application` and `Activity` classes.
 
