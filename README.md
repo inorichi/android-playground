@@ -6,6 +6,8 @@ This is a sample Android application with a strong focus on a clean architecture
 
 The application shows a list of Marvel characters using the [Marvel API](https://developer.marvel.com/) with the option to search for characters, and a details page showing the selected character profile.
 
+![character-list](images/character-list.png) ![character-details](images/character-details.png)
+
 ## Building the project
 
 In order to build this project, an API key needs to be provided in the `local.properties` file using the following scheme:
@@ -20,7 +22,7 @@ More details for getting an API key can be found [here.](https://developer.marve
 
 ## Architecture
 
-The application architecture is built based on [Uncle Bob's Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html), and to enforce a proper separation of concerns and limiting boundaries, the project has been divided into 4 modules:
+The application architecture is built based on [Uncle Bob's Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) to enforce a proper separation of concerns, limiting boundaries and unidirectional data flow, the project has been divided into 4 modules:
 
 * `domain`: It contains the entities, repositories interfaces and use cases (interactors) of the application. This module's dependencies are as small as possible, and should never depend on any networking or persistency library.
 
@@ -51,6 +53,8 @@ The application architecture is built based on [Uncle Bob's Clean Architecture](
 * [Accompanist](https://github.com/google/accompanist) for system bars tinting and animated navigation.
 
 * [Paging](https://developer.android.com/topic/libraries/architecture/paging/v3-overview) for paginated listings.
+
+* [Coil](https://github.com/coil-kt/coil) for image loading.
 
 * [Kotest](https://github.com/kotest/kotest) for writing the unit tests.
 
